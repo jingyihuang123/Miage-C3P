@@ -70,6 +70,28 @@ c := Counter new.
 c increment; increment; decrement.
 Transcript show: c value. "=> 1"
 
+Expected result / 我的预期
+
+I expected the program to print 1, because two increments and one decrement should leave the counter at one.
+我预期程序会输出 1，因为执行两次加一、一次减一后计数应为一。
+
+Actual result / 实际结果
+
+At first, I received an error message:
+MessageNotUnderstood: Counter>>value
+because I had forgotten to initialize the variable value in the initialize method.
+After adding value := 0 inside initialize, the output became correct:
+✅ Transcript → 1
+
+起初程序报错，因为我忘记在 initialize 方法中初始化 value。修复后输出才正确。
+
+Reflection / 反思
+
+This taught me that in Pharo, instance variables are nil by default, not 0.
+Even though my logic was right, the behavior failed because the object’s initial state was undefined.
+I learned that initialization is part of an object’s behavior, not a separate step.
+我了解到 Pharo 中实例变量默认是 nil 而非 0，即使逻辑正确，如果对象状态未初始化，程序也会失败。初始化应被视为对象行为的一部分。
+
 What I learned:
 Encapsulation helps prevent direct variable access; only messages should control internal state.
 我学到封装的重要性：不要直接访问变量，而是通过消息操作内部状态。
